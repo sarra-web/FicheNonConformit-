@@ -13,30 +13,39 @@ import java.util.List;
 @Data
 @Entity
 public class Fiche {
-    /*private Atelier atelier;
-    private Ligne ligne;
-    private Lot lot ;
-    private OrdreFabrication ordreFabrication;*/
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "NumFiche")
-    private Long  NumFiche;
+    private Long id;
 
-    @OneToOne
-    @JoinColumn(name ="idProblem")
-    private Probleme prob;
+    private Long lineId;
 
+    private String lineLabel;
 
-    @OneToOne
-    @JoinColumn(name ="idActionImmediate")
-    private ActionImmediate actImm;
+    private Long lotId;
 
-    @OneToMany( mappedBy="fiche" )
-    private List<Cause> causes = new ArrayList<>();
+    private String lotRef;
+
+    private String ofId;
 
 
+    @Column
+    private Long  numFiche;
 
-    @OneToOne
-    @JoinColumn(name ="idActionDefinitive")
-    private ActionDefinitive actDef;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name ="id")
+    private Probleme probleme;
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name ="id")
+    private ActionImmediate actionImmediate;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="fiche" )
+    private List<Cause> causes;
+
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name ="id")
+    private ActionDefinitive actionDefinitive;
 }

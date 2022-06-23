@@ -1,12 +1,13 @@
 package com.example.demo.entity;
 
+import com.example.demo.entity.Embeddable.Participant;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
 import javax.persistence.*;
-import java.util.Calendar;
+import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,19 +17,30 @@ import java.util.Calendar;
 
 public class Action {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        @Column(name = "Id")
-        private Long  id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
 
-        private String nom;
-        private Calendar datePrevue = Calendar.getInstance();
-        private Calendar dateReelle = Calendar.getInstance();
-        private String commentaire;
-        private String qui;
+    private String nom;
 
-        @ManyToOne
-        @JoinColumn(name = "action",nullable=false)
-        private Fiche action;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss",
+            timezone = "Africa/Tunis")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date datePrevue;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss",
+            timezone = "Africa/Tunis")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateReelle;
+
+    private String commentaire;
+
+
+    @Embedded
+    private Participant qui;
+
+    @ManyToOne
+    @JoinColumn(name = "action", nullable = false)
+    private ActionDefinitive actionDefinitive;
 }

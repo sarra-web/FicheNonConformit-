@@ -1,11 +1,12 @@
 package com.example.demo.entity;
 
+
+import com.example.demo.entity.Embeddable.Decision;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Time;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -16,14 +17,17 @@ import java.util.Date;
 public class Probleme {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "Id", insertable = false, updatable = false)
-    private Long  id;
+    private Long id;
 
 
-    private Date time= Calendar.getInstance().getTime();
+    private Date time ;
 
     @Embedded
-    private Decision dec;
-    @Embedded
-    private Decision2 dec2;
+    private Decision decisionBlockage;
+
+
+    //to doo
+
+
+
 }

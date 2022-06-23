@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.example.demo.entity.Embeddable.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,13 +23,13 @@ public class ActionImmediate {
     @Embedded
     private DecisionLiberation decisionLiberation;
     @Embedded
-    private DecisionTraitement  decisionTraitement;
+    private DecisionTraitement decisionTraitement;
 
     @Embedded
-    private DecisionNonConfirmité  decisionNonConfirmité;
+    private DecisionNonConfirmité decisionNonConfirmité;
 
     @Embedded
-    private NecessiteAnalyse  necessiteAnalyse;
+    private NecessiteAnalyse necessiteAnalyse;
 
 
 
