@@ -14,16 +14,18 @@ public class Cause {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Id")
-    private Long  id;
+    private Long id;
+
     @ManyToOne
-    @JoinColumn(name = "fiche",nullable=false)
+    @JoinColumn(name = "fiche", nullable = false)
     private Fiche fiche;
 
     private TypeM type;
-    private  String commentaire;
+
+    private String commentaire;
+
     private String cause;
+
     private String otherCause;
-
-
 
 }
