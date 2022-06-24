@@ -38,7 +38,7 @@ public class Action {
 
 
     @Embedded
-    private Participant qui;
+    private Participant intervenant;
 
     @ManyToOne
     @JoinColumn(name = "action", nullable = false)

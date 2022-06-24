@@ -25,7 +25,7 @@ public class ActionDefinitive {
     private List<Participant> participants;
 
     @Embedded
-    private Participant validator;
+    private Participant validator;// car on a un seul validateur
 
 
     @OneToMany(cascade = CascadeType.ALL)
