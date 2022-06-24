@@ -19,17 +19,17 @@ public class Fiche {
 
     private Long lineId;
 
-    private String lineLabel;
+    private String lineLabel;//Ou
 
     private Long lotId;
 
-    private String lotRef;
+    private String lotRef;//Réference
 
     private String ofId;
+    private String IdFamille; //famille
 
 
-    @Column
-    private Long  numFiche;
+
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name ="id")
