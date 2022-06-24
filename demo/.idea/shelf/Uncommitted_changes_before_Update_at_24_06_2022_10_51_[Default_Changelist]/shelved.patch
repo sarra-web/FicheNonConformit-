@@ -1,0 +1,97 @@
+Index: src/main/java/com/example/demo/entity/Fiche.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.demo.entity;\r\n\r\nimport lombok.AllArgsConstructor;\r\nimport lombok.Data;\r\nimport lombok.NoArgsConstructor;\r\n\r\nimport javax.persistence.*;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\n@NoArgsConstructor\r\n@AllArgsConstructor\r\n@Data\r\n@Entity\r\npublic class Fiche {\r\n    @Id\r\n    @GeneratedValue(strategy = GenerationType.AUTO)\r\n    private Long id;\r\n\r\n    private Long lineId;\r\n\r\n    private String lineLabel;\r\n\r\n    private Long lotId;\r\n\r\n    private String lotRef;\r\n\r\n    private String ofId;\r\n\r\n\r\n    @Column\r\n    private Long  numFiche;\r\n\r\n    @OneToOne(cascade = CascadeType.ALL)\r\n    @JoinColumn(name =\"id\")\r\n    private Probleme probleme;\r\n\r\n\r\n    @OneToOne(cascade = CascadeType.ALL)\r\n    @JoinColumn(name =\"id\")\r\n    private ActionImmediate actionImmediate;\r\n\r\n    @OneToMany(cascade = CascadeType.ALL, mappedBy=\"fiche\" )\r\n    private List<Cause> causes;\r\n\r\n\r\n\r\n    @OneToOne(cascade = CascadeType.ALL)\r\n    @JoinColumn(name =\"id\")\r\n    private ActionDefinitive actionDefinitive;\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/demo/entity/Fiche.java b/src/main/java/com/example/demo/entity/Fiche.java
+--- a/src/main/java/com/example/demo/entity/Fiche.java	(revision 0b745f70a7097b235628a8a2cb6cbb0250c5d237)
++++ b/src/main/java/com/example/demo/entity/Fiche.java	(date 1656060219436)
+@@ -19,17 +19,17 @@
+ 
+     private Long lineId;
+ 
+-    private String lineLabel;
++    private String lineLabel;//Ou
+ 
+     private Long lotId;
+ 
+-    private String lotRef;
++    private String lotRef;//Réference
+ 
+     private String ofId;
++    private String IdFamille; //famille
+ 
+ 
+-    @Column
+-    private Long  numFiche;
++
+ 
+     @OneToOne(cascade = CascadeType.ALL)
+     @JoinColumn(name ="id")
+Index: src/main/java/com/example/demo/entity/Probleme.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.demo.entity;\r\n\r\n\r\nimport com.example.demo.entity.Embeddable.Decision;\r\nimport lombok.AllArgsConstructor;\r\nimport lombok.Data;\r\nimport lombok.NoArgsConstructor;\r\n\r\nimport javax.persistence.*;\r\nimport java.util.Calendar;\r\nimport java.util.Date;\r\n\r\n@NoArgsConstructor\r\n@AllArgsConstructor\r\n@Data\r\n@Entity\r\npublic class Probleme {\r\n    @Id\r\n    @GeneratedValue(strategy = GenerationType.AUTO)\r\n    private Long id;\r\n\r\n\r\n    private Date time ;\r\n\r\n    @Embedded\r\n    private Decision decisionBlockage;\r\n\r\n\r\n    //to doo\r\n\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/demo/entity/Probleme.java b/src/main/java/com/example/demo/entity/Probleme.java
+--- a/src/main/java/com/example/demo/entity/Probleme.java	(revision 0b745f70a7097b235628a8a2cb6cbb0250c5d237)
++++ b/src/main/java/com/example/demo/entity/Probleme.java	(date 1656060642162)
+@@ -2,6 +2,8 @@
+ 
+ 
+ import com.example.demo.entity.Embeddable.Decision;
++import com.example.demo.entity.Embeddable.Participant;
++import com.fasterxml.jackson.annotation.JsonFormat;
+ import lombok.AllArgsConstructor;
+ import lombok.Data;
+ import lombok.NoArgsConstructor;
+@@ -18,12 +20,28 @@
+     @Id
+     @GeneratedValue(strategy = GenerationType.AUTO)
+     private Long id;
++    @Column
++    private Long  numFiche;
++    private TypeProblem typeProbleme;
++    private String incident;
+ 
+-
++    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss",
++            timezone = "Africa/Tunis")
++    @Temporal(TemporalType.TIMESTAMP)
+     private Date time ;
+-
++    @Embedded
++    private Participant intervenat;
++    private String maniereDetection;
++    private String autreManiereDetection;
++    private String  priodeTemps;
++    private double quantité;
++    private String cause;
++    private boolean prodLivré;
+     @Embedded
+     private Decision decisionBlockage;
++    private boolean prodIsolé;
++    private String lieuIsolement;
++    private String commentaire;
+ 
+ 
+     //to doo
+Index: src/main/java/com/example/demo/entity/TypeProblem.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/demo/entity/TypeProblem.java b/src/main/java/com/example/demo/entity/TypeProblem.java
+new file mode 100644
+--- /dev/null	(date 1656060121030)
++++ b/src/main/java/com/example/demo/entity/TypeProblem.java	(date 1656060121030)
+@@ -0,0 +1,5 @@
++package com.example.demo.entity;
++
++public enum TypeProblem {
++    Qualité,Maintenance,Environnement,Kosu,Secuirté,Autre
++}
