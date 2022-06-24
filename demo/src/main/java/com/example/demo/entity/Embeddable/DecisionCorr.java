@@ -1,31 +1,32 @@
 package com.example.demo.entity.Embeddable;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 import java.sql.Date;
 
+@Builder
 @NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
 @Data
 @Embeddable
 public class DecisionCorr {
 
-    private boolean possibiliteCorr;
-
-    private String  nomDecideur;
+    @Embedded Decision decisionCorr;
 
     @Column(name = "type",  insertable = false, updatable = false)
     private String type;
-
+    private String autreType="";
     private String detailCorr;
-
     private String respCorr;
 
     @Column(name = "date",  insertable = false, updatable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss",
+            timezone = "Africa/Tunis")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
 }
